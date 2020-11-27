@@ -27,7 +27,8 @@ SCENE_MODEL = "models/classification/dogs-vs-cats/model.tflite"
 SCENE_LABELS = "models/classification/dogs-vs-cats/labels.txt"
 
 # Setup object detection
-obj_interpreter = tflite.Interpreter(model_path=OBJ_MODEL, experimental_delegates=[load_delegate('libedgetpu.so.1.0')])obj_interpreter.allocate_tensors()
+obj_interpreter = tflite.Interpreter(model_path=OBJ_MODEL, experimental_delegates=[load_delegate('libedgetpu.so.1.0')])
+obj_interpreter.allocate_tensors()
 obj_input_details = obj_interpreter.get_input_details()
 obj_output_details = obj_interpreter.get_output_details()
 obj_input_height = obj_input_details[0]["shape"][1]
