@@ -21,14 +21,13 @@ OBJ_DETECTION_URL = "/v1/vision/detection"
 SCENE_URL = "/v1/vision/scene"
 # Models and labels
 FACE_MODEL = "models/face_detection/mobilenet_ssd_v2_face/mobilenet_ssd_v2_face_quant_postprocess.tflite"
-OBJ_MODEL = "models/object_detection/mobilenet_ssd_v2_coco/mobilenet_ssd_v2_coco_quant_postprocess.tflite"
+OBJ_MODEL = "models/object_detection/ssd_mobilenet_v2_coco_quant_postprocess_edgetpu.tflite"
 OBJ_LABELS = "models/object_detection/mobilenet_ssd_v2_coco/coco_labels.txt"
 SCENE_MODEL = "models/classification/dogs-vs-cats/model.tflite"
 SCENE_LABELS = "models/classification/dogs-vs-cats/labels.txt"
 
 # Setup object detection
-obj_interpreter = tflite.Interpreter(model_path=OBJ_MODEL)
-obj_interpreter.allocate_tensors()
+obj_interpreter = tflite.Interpreter(model_path=OBJ_MODEL, experimental_delegates=[load_delegate('libedgetpu.so.1.0')])obj_interpreter.allocate_tensors()
 obj_input_details = obj_interpreter.get_input_details()
 obj_output_details = obj_interpreter.get_output_details()
 obj_input_height = obj_input_details[0]["shape"][1]
